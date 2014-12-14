@@ -1,0 +1,18 @@
+{
+  "name": "w-cars",
+  "author": "saxsir",
+  "license": "MIT",
+  "dependencies": {
+    "casperjs": "^1.1.0-beta3",
+    "coffee-script": "^1.8.0"
+  },
+  "devDependencies": {
+    "coffeelint": "^1.6.1",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-coffeelint": "0.0.13",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "matchdep": "^0.3.0"
+  }
+}
