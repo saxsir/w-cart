@@ -1,2 +1,3 @@
 #!/bin/sh
 node_modules/casperjs/bin/casperjs dest/w-cars.js
+sudo cp -r logs/ /vagrant/share/
