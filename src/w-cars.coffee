@@ -8,7 +8,11 @@ casper = require('casper').create {
 }
 
 casper.start()
-url = 'http://loilo.tv/jp/product/ipad_edu_note'
+urls = [
+  'http://loilo.tv/jp/product/ipad_edu_note',
+  'http://www.olapilates.com/',
+  'http://www.all-connect.jp/'
+]
 
 startTime = new Date
 year = startTime.getFullYear()
@@ -17,10 +21,13 @@ date = startTime.getDate()
 hour = startTime.getHours()
 min = startTime.getMinutes()
 
-casper.thenOpen url, ->
-  @echo @getTitle()
-  @capture "logs/#{[year, month, date].join('-')}/#{[hour, min].join('-')}/
-            #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
-            original.png"
+casper.each urls, (casper, url, i) ->
+  @thenOpen url, ->
+    @echo @getTitle()
+
+    #FIXME ページのロードが遅いとうまく撮影できない時があるが...イベントを把握する術がないのでとりあえず運と回線スピードに任せる
+    @capture "logs/#{[year, month, date].join('-')}/#{[hour, min].join('-')}/
+              #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
+              original.png"
 
 casper.run()
