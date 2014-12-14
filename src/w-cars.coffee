@@ -8,11 +8,7 @@ casper = require('casper').create {
 }
 
 casper.start()
-urls = [
-  'http://loilo.tv/jp/product/ipad_edu_note',
-  'http://www.olapilates.com/',
-  'http://www.all-connect.jp/'
-]
+urls = require '../config/target.json'
 
 startTime = new Date
 year = startTime.getFullYear()
