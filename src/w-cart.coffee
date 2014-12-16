@@ -19,9 +19,15 @@ min = startTime.getMinutes()
 
 casper.each urls, (casper, url, i) ->
   @thenOpen url, ->
-    @echo @getTitle()
+    # @echo @getTitle()
 
-    capture @, url, 'original.png'
+    console.log 'aaa'
+
+    # capture @, url, 'original.png'
+    result = @evaluate replaceAllChars
+
+    console.log result
+    console.log 'bbb'
 
 casper.run()
 
@@ -39,3 +45,9 @@ capture = (casper, url, filename)->
              #{filename}"
 
   casper.capture filepath.replace(/\s+/g, '')
+
+###
+  開いたページのすべての文字列を〼に置き換える関数
+###
+replaceAllChars = ->
+  return document.title
