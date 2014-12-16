@@ -10,7 +10,7 @@ module.exports = (grunt) ->
         bare: yes
       all:
         files:
-          'dest/w-cars.js': 'src/w-cars.coffee'
+          'dest/w-cart.js': 'src/w-cart.coffee'
 
     coffeelint:
       options:

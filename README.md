@@ -1,4 +1,4 @@
-w-cars
+w-cart
 ======
 
-Web Capturing and Rewrite System
+Web Capturing and Rewrite Tool
