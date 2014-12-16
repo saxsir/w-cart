@@ -21,9 +21,21 @@ casper.each urls, (casper, url, i) ->
   @thenOpen url, ->
     @echo @getTitle()
 
-    #FIXME ページのロードが遅いとうまく撮影できない時があるが...イベントを把握する術がないのでとりあえず運と回線スピードに任せる
-    @capture "logs/#{[year, month, date].join('-')}/#{[hour, min].join('-')}/
-              #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
-              original.png"
+    capture @, url, 'original.png'
 
 casper.run()
+
+###
+  @param casper casperオブジェクト
+  @param url キャプチャするページのURL
+  @param filename 保存するファイルの名称
+###
+#FIXME ページのロードが遅いとうまく撮影できない時があるが...イベントを把握する術がないのでとりあえず運と回線スピードに任せる
+capture = (casper, url, filename)->
+  filepath = "logs/
+             #{[year, month, date].join('-')}/
+             #{[hour, min].join('-')}/
+             #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
+             #{filename}"
+
+  casper.capture filepath.replace(/\s+/g, '')
