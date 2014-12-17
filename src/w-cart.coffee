@@ -53,8 +53,13 @@ capture = (casper, url, filename)->
 ###
 replaceAllChars = ->
   replaceTextNode = (node)->
-    if node.nodeType is Node.TEXT_NODE
+    nodeType = node.nodeType
+    nodeName = node.nodeName.toLowerCase()
+
+    if nodeType is Node.TEXT_NODE
       node.nodeValue = node.nodeValue.replace /\S/g, '〼'
+      return null
+    else if nodeName is 'script' or nodeName is 'style'
       return null
     else
       for child in node.childNodes
