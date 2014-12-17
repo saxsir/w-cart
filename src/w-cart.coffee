@@ -23,8 +23,9 @@ casper.each urls, (casper, url, i) ->
 
     console.log 'aaa'
 
-    # capture @, url, 'original.png'
+    capture @, url, '0-before.png'
     result = @evaluate replaceAllChars
+    capture @, url, '1-after.png'
 
     console.log result
     console.log 'bbb'
@@ -48,6 +49,15 @@ capture = (casper, url, filename)->
 
 ###
   開いたページのすべての文字列を〼に置き換える関数
+  DOMをbody要素から再帰的にチェックしてTextNodeだったら書き換える
 ###
 replaceAllChars = ->
-  return document.title
+  replaceTextNode = (node)->
+    if node.nodeType is Node.TEXT_NODE
+      node.nodeValue = node.nodeValue.replace /\S/g, '〼'
+      return null
+    else
+      for child in node.childNodes
+        replaceTextNode child
+
+  replaceTextNode document.body
