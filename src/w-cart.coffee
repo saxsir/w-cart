@@ -19,11 +19,50 @@ min = startTime.getMinutes()
 
 casper.each urls, (casper, url, i) ->
   @thenOpen url, ->
-    @echo @getTitle()
+    # @echo @getTitle()
 
-    #FIXME ページのロードが遅いとうまく撮影できない時があるが...イベントを把握する術がないのでとりあえず運と回線スピードに任せる
-    @capture "logs/#{[year, month, date].join('-')}/#{[hour, min].join('-')}/
-              #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
-              original.png"
+    console.log 'aaa'
+
+    capture @, url, '0-before.png'
+    result = @evaluate replaceAllChars
+    capture @, url, '1-after.png'
+
+    console.log result
+    console.log 'bbb'
 
 casper.run()
+
+###
+  @param casper casperオブジェクト
+  @param url キャプチャするページのURL
+  @param filename 保存するファイルの名称
+###
+#FIXME ページのロードが遅いとうまく撮影できない時があるが...イベントを把握する術がないのでとりあえず運と回線スピードに任せる
+capture = (casper, url, filename)->
+  filepath = "logs/
+             #{[year, month, date].join('-')}/
+             #{[hour, min].join('-')}/
+             #{url.replace(/^http.*\/\//, '').split('/').join('_')}/
+             #{filename}"
+
+  casper.capture filepath.replace(/\s+/g, '')
+
+###
+  開いたページのすべての文字列を〼に置き換える関数
+  DOMをbody要素から再帰的にチェックしてTextNodeだったら書き換える
+###
+replaceAllChars = ->
+  replaceTextNode = (node)->
+    nodeType = node.nodeType
+    nodeName = node.nodeName.toLowerCase()
+
+    if nodeType is Node.TEXT_NODE
+      node.nodeValue = node.nodeValue.replace /\S/g, '＠'
+      return null
+    else if nodeName is 'script' or nodeName is 'style'
+      return null
+    else
+      for child in node.childNodes
+        replaceTextNode child
+
+  replaceTextNode document.body
