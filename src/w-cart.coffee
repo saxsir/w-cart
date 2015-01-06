@@ -21,14 +21,9 @@ casper.each urls, (casper, url, i) ->
   @thenOpen url, ->
     # @echo @getTitle()
 
-    console.log 'aaa'
-
     capture @, url, '0-before.png'
     result = @evaluate replaceAllChars
     capture @, url, '1-after.png'
-
-    console.log result
-    console.log 'bbb'
 
 casper.run()
 
