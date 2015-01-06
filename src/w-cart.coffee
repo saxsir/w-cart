@@ -57,7 +57,9 @@ replaceAllChars = ->
     nodeName = node.nodeName.toLowerCase()
 
     if nodeType is Node.TEXT_NODE
-      node.nodeValue = node.nodeValue.replace /\S/g, '＠'
+      node.nodeValue = node.nodeValue
+        .replace /[!-~]/g, '?' #半角文字
+        .replace /[^ (!-~\s)]/g, '？' #半角文字、スペース、改行文字以外のすべて
       return null
     else if nodeName is 'script' or nodeName is 'style'
       return null
