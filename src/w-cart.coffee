@@ -67,4 +67,7 @@ replaceAllChars = ->
       for child in node.childNodes
         replaceTextNode child
 
+  # 記号に置換すると全部ひとつづきの単語だと認識されて改行されないので
+  # refs http;//8cmp.blog.fc2.com/blog-entry-43.html
+  document.body.style.wordBreak = 'break-all'
   replaceTextNode document.body
