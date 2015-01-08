@@ -19,7 +19,7 @@ min = startTime.getMinutes()
 
 casper.each urls, (casper, url, i) ->
   @thenOpen url, ->
-    # @echo @getTitle()
+    @echo 'Captured:' + @getTitle()
 
     capture @, url, '0-before.png'
     result = @evaluate replaceAllChars
